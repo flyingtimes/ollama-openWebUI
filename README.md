@@ -37,7 +37,10 @@ ollama crate YOUR-MODEL-NAME -f /path/to/your/modelfile.txt
 
 ### 训练模型
 ```
+# qwen
 HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-1.5B-Instruct  --data data/ --train --iters 1000 --batch-size 32 --lora-layers 8 --adapter-path adapters/Qwen2.5-1.5B-FT-1109
+# nemotron
+mlx_lm.lora --model mlx-community/nvidia_Llama-3.1-Nemotron-70B-Instruct-HF_4bit --data data/  --train --iters 3000 --batch-size 4 --lora-layers 12 --adapter adapter/nemotro
 ```
 
 ### 合并模型
@@ -47,5 +50,8 @@ mlx_lm.fuse --model Qwen/Qwen2.5-1.5B-Instruct --adapter-path adapters/Qwen2.5-1
 ### 转换gguf
 使用llama.cpp项目里面的程序
 ```
+# 转换
 python convert-hf-to-gguf.py ../ollama-openWebUI/gguf-models/qwen2-1.5b-FT-1109
+# 量化
+./quantize old-gguf-f16.gguf new-gguf-q4_0.gguf q4_0
 ```

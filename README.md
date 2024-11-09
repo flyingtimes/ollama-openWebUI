@@ -37,21 +37,26 @@ ollama crate YOUR-MODEL-NAME -f /path/to/your/modelfile.txt
 
 ### 训练模型
 ```
-# qwen
+# qwen1.5B
 HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-1.5B-Instruct  --data data/ --train --iters 1000 --batch-size 32 --lora-layers 8 --adapter-path adapters/Qwen2.5-1.5B-FT-1109
+# qwen72B
+HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model mlx-community/Qwen2.5-72B-Instruct-4bit  --data data/ --train --iters 3000 --batch-size 16 --lora-layers 8 --adapter-path adapters/Qwen2.5-72B-FT-1109
 # nemotron
 mlx_lm.lora --model mlx-community/nvidia_Llama-3.1-Nemotron-70B-Instruct-HF_4bit --data data/  --train --iters 3000 --batch-size 4 --lora-layers 12 --adapter adapter/nemotro
 ```
 
 ### 合并模型
 ```
+# qwen
 mlx_lm.fuse --model Qwen/Qwen2.5-1.5B-Instruct --adapter-path adapters/Qwen2.5-1.5B-FT-1109  --save-path gguf-models/qwen2-1.5b-FT-1109
+# nemotron
+mlx_lm.fuse --model mlx-community/nvidia_Llama-3.1-Nemotron-70B-Instruct-HF_4bit --adapter-path adapter/nemotron   --save-path gguf-models/nemotron-FT-1110
 ```
 ### 转换gguf
 使用llama.cpp项目里面的程序
 ```
 # 转换
 python convert-hf-to-gguf.py ../ollama-openWebUI/gguf-models/qwen2-1.5b-FT-1109
-# 量化
+# 量化(可选)
 ./quantize old-gguf-f16.gguf new-gguf-q4_0.gguf q4_0
 ```

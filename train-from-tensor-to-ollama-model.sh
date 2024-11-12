@@ -1,10 +1,14 @@
 #!/bin/bash
 date
 # trainning using data/ folder ,resume
-#HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 5000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --resume-adapter-file adapters/Qwen2-72B-$1/0000400_adapters.safetensors
+#HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 3000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --resume-adapter-file adapters/Qwen2-72B-round3/adapters.safetensors
 
 # trainning using data/ folder 
-HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 3000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 
+#HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 3000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 
+
+# trainning using data/ folder with max-seq-length
+HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 2480 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --max-seq-length 4096
+
 date
 # fuse model
 mlx_lm.fuse --model Qwen/Qwen2.5-72B-Instruct --adapter-path adapters/Qwen2-72B-$1  --save-path gguf-models/Qwen2-72B-$1
@@ -19,5 +23,5 @@ date
 cd gguf-models/Qwen2-72B-$1;ollama create qwen72b-$1 -f qwen_modelfile.txt
 date
 # remove middle files
-rm -rf gguf-models/Qwen2-72B-$1
+#rm -rf gguf-models/Qwen2-72B-$1
 date

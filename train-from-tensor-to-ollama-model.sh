@@ -1,13 +1,13 @@
 #!/bin/bash
 date
 # trainning using data/ folder ,resume
-#HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 3000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --resume-adapter-file adapters/Qwen2-72B-round3/adapters.safetensors
+HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 2480 --batch-size 1 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --resume-adapter-file adapters/Qwen2-72B-round4/adapters.safetensors --max-seq-length 4096
 
 # trainning using data/ folder 
 #HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 3000 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 
 
 # trainning using data/ folder with max-seq-length
-HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 2480 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --max-seq-length 4096
+#HF_ENDPOINT=https://hf-mirror.com mlx_lm.lora --model Qwen/Qwen2.5-72B-Instruct  --data data/ --train --iters 2480 --batch-size 4 --lora-layers 16  --adapter-path adapters/Qwen2-72B-$1 --max-seq-length 4096
 
 date
 # fuse model

@@ -72,3 +72,15 @@ ollama crate YOUR-MODEL-NAME -f /path/to/your/modelfile.txt
 ```
 bash train-from-tensor-to-ollama-model.sh YOUR_TRAIN_NAME
 ```
+
+## 部署mark_server
+部署一个mark_server，用于接收用户文档，并解析成markdown
+```
+# dockerfile 文件参考 marker_docker.dockerfile
+docker pull dockerpull.org/dibz15/marker_docker
+```
+调用方式
+```
+docker run -v .\documents\:/pdfs dockerpull.org/dibz15/marker_docker python convert_single.py /pdfs/1.pdf /pdfs/1.md --parallel_factor 2 --max_pages 10
+
+```

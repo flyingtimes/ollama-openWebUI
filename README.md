@@ -73,8 +73,9 @@ ollama crate YOUR-MODEL-NAME -f /path/to/your/modelfile.txt
 bash train-from-tensor-to-ollama-model.sh YOUR_TRAIN_NAME
 ```
 
-## 部署mark_server
-部署一个mark_server，用于接收用户文档，并解析成markdown
+## 文档的解析处理
+
+#### 部署一个mark_server，用于接收用户文档，并解析成markdown
 ```
 # dockerfile 文件参考 marker_docker.dockerfile
 docker pull dockerpull.org/dibz15/marker_docker
@@ -84,3 +85,14 @@ docker pull dockerpull.org/dibz15/marker_docker
 docker run -v .\documents\:/pdfs dockerpull.org/dibz15/marker_docker python convert_single.py /pdfs/1.pdf /pdfs/1.md --parallel_factor 2 --max_pages 10
 
 ```
+#### 使用convert_pdfs.py批量处理pdf文件
+```
+# 基本用法
+python convert_pdfs.py ./documents ./output
+
+# 指定并行因子和最大页数
+python convert_pdfs.py ./documents ./output --parallel_factor 4 --max_pages 20
+```
+
+> 使用cursor 完成convert_pdf的编写，并测试通过。
+>> 写一个python程序，遍历输入文件夹中的所有子目录，对于其中的pdf文件做如下处理：调用marker_docker程序将pdf转换为md格式文件，并将所有输出文件保存到输出文件夹中 ***

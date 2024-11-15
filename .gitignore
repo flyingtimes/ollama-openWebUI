@@ -1,3 +1,6 @@
 gguf-models/
 adapters/
 __pycache__/
+外部规范与内部制度文件/
+md_files/
+.DS_Store

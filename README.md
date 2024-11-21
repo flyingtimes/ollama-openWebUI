@@ -75,17 +75,17 @@ bash train-from-tensor-to-ollama-model.sh YOUR_TRAIN_NAME
 
 ## 文档的解析处理
 
-#### 部署一个mark_server，用于接收用户文档，并解析成markdown
+#### ~~部署一个mark_server，用于接收用户文档，并解析成markdown~~ ps:改成docling
 ```
 # dockerfile 文件参考 marker_docker.dockerfile
 docker pull dockerpull.org/dibz15/marker_docker
 ```
-调用方式
+~~调用方式~~
 ```
 docker run -v .\documents\:/pdfs dockerpull.org/dibz15/marker_docker python convert_single.py /pdfs/1.pdf /pdfs/1.md --parallel_factor 2 --max_pages 10
 
 ```
-#### 使用convert_pdfs.py批量处理pdf文件
+#### ~~使用convert_pdfs.py批量处理pdf文件~~
 ```
 # 基本用法
 python convert_pdfs.py ./documents ./output
@@ -96,3 +96,16 @@ python convert_pdfs.py ./documents ./output --parallel_factor 4 --max_pages 20
 
 > 使用cursor 完成convert_pdf的编写，并测试通过。
 >> 写一个python程序，遍历输入文件夹中的所有子目录，对于其中的pdf文件做如下处理：调用marker_docker程序将pdf转换为md格式文件，并将所有输出文件保存到输出文件夹中 ***
+
+#### 使用docling 处理文件
+```
+FROM dockerproxy.net/yokohide0317/docling:2.5.2
+```
+```
+# examples
+docker run -it --rm -v .:/work docling docling /work/documents/1.pdf
+```
+#### 拆分章节
+```
+请写一个python程序，将documents/test.md 文件的内容按照不同的章节划分为多个文件，文件名为章节名称+标题
+```
